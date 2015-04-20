@@ -193,6 +193,7 @@ def cla_done(person):
     :arg person: People object or username to check for CLA status
     :returns: True if the user has completed the CLA otherwise False
     '''
+    return True
     cla_done_group = config.get('cla_done_group')
     if isinstance(person, basestring):
         try:
@@ -221,6 +222,7 @@ def standard_cla_done(person):
     :arg person: People object or username to check for CLA status
     :returns: True if the user has completed the CLA otherwise False
     '''
+    return True
     standard_cla_group = config.get('cla_standard_group')
     if isinstance(person, basestring):
         try:
@@ -254,6 +256,7 @@ def undeprecated_cla_done(person):
         approved otherwise False.  The second element of the tuple is True if
         a non-deprecated cla group is approved, otherwise False.
     '''
+    return (True, True)
     cla_done_group = config.get('cla_done_group')
     cla_deprecated = frozenset(config.get('cla_deprecated_groups', []))
 
