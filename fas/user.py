@@ -402,10 +402,10 @@ class User(controllers.Controller):
                     change_subject = _('Email Change Requested for %s') % \
                         person.username
                     change_text = _('''
-    You have recently requested to change your Fedora Account System email
+    You have recently requested to change your CentOS email
     to this address.  To complete the email change, you must confirm your
     ownership of this email by visiting the following URL (you will need to
-    login with your Fedora account first):
+    login with your CentOS account first):
 
     %(verifyurl)s/accounts/user/verifyemail/%(token)s
     ''') % { 'verifyurl' : config.get('base_url_filter.base_url').rstrip('/'), 'token' : token}
@@ -439,11 +439,11 @@ class User(controllers.Controller):
             turbogears.redirect("/user/edit/%s" % target.username)
             return dict()
         else:
-            change_subject = _('Fedora Account Data Update %s') % \
+            change_subject = _('CentOS Account Data Update %s') % \
                 target.username
             change_text = _('''
 You have just updated information about your account.  If you did not request
-these changes please contact admin@fedoraproject.org and let them know.  Your
+these changes please contact admin@centos.org and let them know.  Your
 updated information is:
 
   username:       %(username)s
@@ -524,12 +524,12 @@ If the above information is incorrect, please log in and fix it:
                 except fas.RemoveError:
                     pass
 
-        subject = _('Your Fedora Account has been set to %s') % status
+        subject = _('Your CentOS Account has been set to %s') % status
         text = _('''
 Your account status have just been set to %s by an admin or an account's moderator. 
-If this is not expected, please contact admin@fedoraproject.org and let them know.
+If this is not expected, please contact admin@centos.org and let them know.
 
-- The Fedora Account System
+- The CentOS Project
         ''') % status
         send_mail(target.email, subject, text)
 
@@ -1024,51 +1024,14 @@ If this is not expected, please contact admin@fedoraproject.org and let them kno
         person.old_password = generate_password()['hash']
         session.flush()
         newpass = generate_password()
-        send_mail(person.email, _('Welcome to the Fedora Project!'), _('''
-You have created a new Fedora account!
+        send_mail(person.email, _('Welcome to the CentOS Project!'), _('''
+You have created a new CentOS account!
 Your username is: %(username)s
 Your new password is: %(password)s
 
 Please go to %(base_url)s%(webpath)s/user/changepass
 to change it.
 
-Welcome to the Fedora Project. Now that you've signed up for an
-account you're probably desperate to start contributing, and with that
-in mind we hope this e-mail might guide you in the right direction to
-make this process as easy as possible.
-
-Fedora is an exciting project with lots going on, and you can
-contribute in a huge number of ways, using all sorts of different
-skill sets. To find out about the different ways you can contribute to
-Fedora, you can visit our join page which provides more information
-about all the different roles we have available.
-
-http://join.fedoraproject.org/
-
-If you already know how you want to contribute to Fedora, and have
-found the group already working in the area you're interested in, then
-there are a few more steps for you to get going.
-
-Foremost amongst these is to sign up for the team or project's mailing
-list that you're interested in - and if you're interested in more than
-one group's work, feel free to sign up for as many mailing lists as
-you like! This is because mailing lists are where the majority of work
-gets organised and tasks assigned, so to stay in the loop be sure to
-keep up with the messages.
-
-Once this is done, it's probably wise to send a short introduction to
-the list letting them know what experience you have and how you'd like
-to help. From here, existing members of the team will help you to find
-your feet as a Fedora contributor.
-
-Please remember that you are joining a community made of contributors
-from all around the world, as such please stop by the Community Code of
-Conduct.
-
-https://fedoraproject.org/code-of-conduct
-
-And finally, from all of us here at the Fedora Project, we're looking
-forward to working with you!
 ''') % {'username': person.username,
         'password': newpass['pass'],
         'base_url': config.get('base_url_filter.base_url'),
@@ -1290,7 +1253,7 @@ To change your password (or to cancel the request), please visit
                     turbogears.flash(_(
                         'Your password reset email could not be encrypted.'))
                     return dict()
-        send_mail(email, _('Fedora Project Password Reset'), mail)
+        send_mail(email, _('CentOS Buildsys Password Reset'), mail)
         person.passwordtoken = token
         Log(author_id=person.id,
             description='Password reset sent for %s' % person.username)
@@ -1527,7 +1490,7 @@ To change your password (or to cancel the request), please visit
             person.username
         gencert_text = _('''
 You have generated a new SSL certificate.  If you did not request this,
-please cc admin@fedoraproject.org and let them know.
+please cc admin@centos.org and let them know.
 
 Note that certificates generated prior to the current one have been
 automatically revoked, and should stop working within the hour.
