@@ -525,11 +525,11 @@ class Group(controllers.Controller):
                     tg_url('/group/view/%s' % groupname)
                 sponsors_addr = '%(group)s-sponsors@%(host)s' % \
                     {'group': group.name, 'host': config.get('email_host')}
-                sponsor_subject = _('Fedora \'%(group)s\' sponsor needed for %(user)s',
+                sponsor_subject = _('Group \'%(group)s\' sponsor needed for %(user)s',
                         locale=locale) % {'user': target.username,
                                 'group': group.name}
                 sponsors_text = _('''
-Fedora user %(user)s <%(email)s> has requested
+User %(user)s <%(email)s> has requested
 membership for %(applicant)s in the %(group)s group and needs a sponsor.
 
 Please go to %(url)s to take action.
@@ -591,12 +591,10 @@ Thank you for applying for the %(group)s group.
                     {'user': target.username, 'group': group.name, 'error': e})
                 turbogears.redirect('/group/view/%s' % group.name)
             else:
-                sponsor_subject = _('Your Fedora \'%s\' membership has been sponsored', target_locale) % group.name
+                sponsor_subject = _('Your CentOS \'%s\' membership has been sponsored', target_locale) % group.name
                 sponsor_text = _('''
 %(user)s <%(email)s> has sponsored you for membership in the %(group)s
-group of the Fedora account system. If applicable, this change should
-propagate into the e-mail aliases and git repository within an hour.
-''', target_locale) % {'group': group.name, 'user': person.username, 'email': person.email}
+group of the CentOS account system. ''', target_locale) % {'group': group.name, 'user': person.username, 'email': person.email}
 
                 send_mail(target.email, sponsor_subject, sponsor_text)
 
@@ -638,10 +636,10 @@ propagate into the e-mail aliases and git repository within an hour.
                     {'user': target.username, 'group': group.name, 'error': e})
                 turbogears.redirect(cherrypy.request.headerMap.get("Referer", "/"))
             else:
-                removal_subject = _('Your Fedora \'%s\' membership has been removed', target_locale) % group.name
+                removal_subject = _('Your group \'%s\' membership has been removed', target_locale) % group.name
                 removal_text = _('''
 %(user)s <%(email)s> has removed you from the '%(group)s'
-group of the Fedora Accounts System This change is effective
+group of the CentOS FAS System This change is effective
 immediately for new operations, and should propagate into the e-mail
 aliases within an hour.
 ''', target_locale) % {'group': group.name, 'user': person.username, 'email': person.email}
@@ -686,7 +684,7 @@ aliases within an hour.
                     {'name': target.username, 'group': group.name, 'error': e})
                 turbogears.redirect(cherrypy.request.headerMap.get("Referer", "/"))
             else:
-                upgrade_subject = _('Your Fedora \'%s\' membership has been upgraded', target_locale) % group.name
+                upgrade_subject = _('Your CentOS \'%s\' membership has been upgraded', target_locale) % group.name
 
                 # Should we make person.upgrade return this?
                 role = PersonRoles.query.filter_by(group=group, member=target).one()
@@ -694,9 +692,7 @@ aliases within an hour.
 
                 upgrade_text = _('''
 %(user)s <%(email)s> has upgraded you to %(status)s status in the
-'%(group)s' group of the Fedora Accounts System This change is
-effective immediately for new operations, and should propagate
-into the e-mail aliases within an hour.
+'%(group)s' group of the CentOS FAS. 
 ''', target_locale) % {'group': group.name, 'user': person.username, 'email': person.email, 'status': status}
 
                 send_mail(target.email, upgrade_subject, upgrade_text)
@@ -708,7 +704,6 @@ into the e-mail aliases within an hour.
                     'agent': person.username,
                     'user': target.username,
                     'group': group.name,
-                    'status': status,
                 })
 
                 turbogears.flash(_('%s has been upgraded!') % target.username)
@@ -727,7 +722,7 @@ into the e-mail aliases within an hour.
         group = Groups.by_name(groupname)
         target_locale = target.locale or 'C'
 
-        if not can_downgrade_user(person, group, target):
+        if not can_downgrade_user(person, group):
             turbogears.flash(_("You cannot downgrade '%s'") % target.username)
             turbogears.redirect(cherrypy.request.headerMap.get("Referer", "/"))
             return dict()
@@ -739,14 +734,14 @@ into the e-mail aliases within an hour.
                     {'name': target.username, 'group': group.name, 'error': e})
                 turbogears.redirect(cherrypy.request.headerMap.get("Referer", "/"))
             else:
-                downgrade_subject = _('Your Fedora \'%s\' membership has been downgraded', target_locale) % group.name
+                downgrade_subject = _('Your Group \'%s\' membership has been downgraded', target_locale) % group.name
 
                 role = PersonRoles.query.filter_by(group=group, member=target).one()
                 status = role.role_type
 
                 downgrade_text = _('''
 %(user)s <%(email)s> has downgraded you to %(status)s status in the
-'%(group)s' group of the Fedora Accounts System This change is
+'%(group)s' group of the CentOS FAS. This change is
 effective immediately for new operations, and should propagate
 into the e-mail aliases within an hour.
 ''', target_locale) % {'group': group.name, 'user': person.username, 'email': person.email, 'status': status}
@@ -760,7 +755,6 @@ into the e-mail aliases within an hour.
                     'agent': person.username,
                     'user': target.username,
                     'group': group.name,
-                    'status': status,
                 })
 
                 turbogears.flash(_('%s has been downgraded!') % target.username)
@@ -826,26 +820,19 @@ into the e-mail aliases within an hour.
         group = Groups.by_name(groupname)
         person = person.filter_private()
 
-        subject = _('Invitation to join the Fedora Team!', language)
+        subject = _('Invitation to join the CentOS Team!', language)
         text = _('''
-%(fullname)s <%(user)s@%(hostname)s> has invited you to join the Fedora
-Project!  We are a community of users and developers who produce a
-complete operating system from entirely free and open source software
-(FOSS).  %(fullname)s thinks that you have knowledge and skills
-that make you a great fit for the Fedora community, and that you might
-be interested in contributing.
+%(fullname)s has invited you to join a CentOS Special Interest group! SIGs are
+smaller groups within the CentOS community that focus on a small set of
+issues, in order to either create awareness or to focus on development along a
+specific topic.
 
-How could you team up with the Fedora community to use and develop your
-skills?  Check out http://fedoraproject.org/join-fedora for some ideas.
-Our community is more than just software developers -- we also have a
-place for you whether you're an artist, a web site builder, a writer, or
-a people person.  You'll grow and learn as you work on a team with other
-very smart and talented people.
+Check out http://wiki.centos.org/SpecialInterestGroup for more information, or
+visit http://admin.centos.org/accounts to create an account.
 
-Fedora and FOSS are changing the world -- come be a part of it!'''
-        % {'fullname': person.human_name,
-               'user': person.username,
-           'hostname': config.get('email_host')}, language)
+Welcome!
+'''
+        % {'fullname': person.human_name }, language)
 
         return dict(person=person, group=group, invite_subject=subject,
                     invite_text=text, selected_language=language)
@@ -861,26 +848,19 @@ Fedora and FOSS are changing the world -- come be a part of it!'''
 
         if is_approved(person, group):
 
-            invite_subject = _('Invitation to join the Fedora Team!', language)
+            invite_subject = _('Invitation to join the CentOS Team!', language)
             invite_text = _('''
-%(fullname)s <%(user)s@%(hostname)s> has invited you to join the Fedora
-Project!  We are a community of users and developers who produce a
-complete operating system from entirely free and open source software
-(FOSS).  %(fullname)s thinks that you have knowledge and skills
-that make you a great fit for the Fedora community, and that you might
-be interested in contributing.
+%(fullname)s has invited you to join a CentOS Special Interest group! SIGs are
+smaller groups within the CentOS community that focus on a small set of
+issues, in order to either create awareness or to focus on development along a
+specific topic.
 
-How could you team up with the Fedora community to use and develop your
-skills?  Check out http://fedoraproject.org/join-fedora for some ideas.
-Our community is more than just software developers -- we also have a
-place for you whether you're an artist, a web site builder, a writer, or
-a people person.  You'll grow and learn as you work on a team with other
-very smart and talented people.
+Check out http://wiki.centos.org/SpecialInterestGroup for more information, or
+visit http://admin.centos.org/accounts to create an account.
 
-Fedora and FOSS are changing the world -- come be a part of it!'''
-            % {'fullname': person.human_name,
-                   'user': person.username,
-               'hostname': config.get('email_host')}, language)
+Welcome!
+'''
+        % {'fullname': person.human_name }, language)
 
             send_mail(target, invite_subject, invite_text)
 
