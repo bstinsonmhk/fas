@@ -21,7 +21,7 @@
   <body py:match="body" py:attrs="select('@*')">
     <div id="wrapper">
       <div id="head" class="head-${config.get('deployment_type', 'dev')}">
-        <h1><a href="http://fedoraproject.org/">${_('Fedora')}</a></h1>
+        <h1><a href="http://www.centos.org/">${_('CentOS')}</a></h1>
         <!-- TODO: Make this do something useful, talk about interface :)
         <div id="searchbox">
           <form action="" method="post">
@@ -40,13 +40,9 @@
       </div>
       <div id="topnav">
         <ul>
-          <li class="first"><a href="http://fedoraproject.org/">${_('Learn about Fedora')}</a></li>
-          <li><a href="http://get.fedoraproject.org/">${_('Download Fedora')}</a></li>
-          <li><a href="http://fedoraproject.org/wiki/">${_('Projects')}</a></li>
-          <li><a href="http://join.fedoraproject.org/">${_('Join Fedora')}</a></li>
-          <li><a href="http://fedoraproject.org/wiki/Communicate">${_('Communicate')}</a></li>
-          <li><a href="http://docs.fedoraproject.org/">${_('Help/Documentation')}</a></li>
-          <li><a href="https://fedoraproject.org/code-of-conduct">${_('Code of Conduct')}</a></li>
+          <li class="first"><a href="http://www.centos.org/">${_('Learn about CentOS')}</a></li>
+          <li><a href="http://www.centos.org/download/">${_('Download CentOS')}</a></li>
+          <li><a href="http://wiki.centos.org/wiki/">${_('CentOS Wiki')}</a></li>
         </ul>
       </div>
       <div id="infobar">
@@ -68,7 +64,7 @@
             <li class="first"><a href="${tg.url('/home')}">${_('Home')}</a></li>
             <li py:if="not tg.identity.anonymous"><a href="${tg.url('/user/view/%s' % tg.identity.user.username)}">${_('My Account')}</a></li>
 	    <li py:if="not tg.identity.anonymous" py:for="entry in sidebar.getEntries()"><a href="${tg.url(entry[1])}">${_(entry[0])}</a></li>
-            <li><a href="http://fedoramagazine.org/">${_('News')}</a></li>
+            <li><a href="http://planet.centos.org/">${_('News')}</a></li>
           </ul>
           <div py:if="tg.identity.anonymous and tg.available_languages and len(tg.available_languages) > 1" id="language">
             <!-- TODO: Should this be available to logged in users to (and actually change their DB entry?) -->
@@ -90,18 +86,18 @@
         <div id="footer">
           <ul id="footlinks">
             <li class="first"><a href="${tg.url('/about')}">${_('About')}</a></li>
-            <li><a href="http://fedoraproject.org/wiki/Communicate">${_('Contact Us')}</a></li>
-            <li><a href="http://fedoraproject.org/wiki/Legal">${_('Legal &amp; Privacy')}</a></li>
-            <a href="https://fedoraproject.org/wiki/Legal/TrademarkGuidelines">${_('Trademark Guidelines')}</a>
+            <li><a href="http://www.centos.org/about/governance">${_('Contact Us')}</a></li>
+            <li><a href="http://www.centos.org/legal">${_('Legal &amp; Privacy')}</a></li>
+            <a href="https://www.centos.org/legal/trademarks">${_('Trademark Guidelines')}</a>
           </ul>
           <p class="version">
             ${_('FAS version %s') % tg.fas_version}
           </p>
           <p class="copy">
-            ${Markup(_('&copy; 2015 Red Hat, Inc.  Please send any comments or corrections to the &lt;a href="mailto:%(webmaster)s"&gt;websites team&lt;/a&gt;.') % {'webmaster': tg.webmaster_email})}
+            ${Markup(_('&copy; 2014 Red Hat, Inc.  Please send any comments or corrections to the &lt;a href="mailto:%(webmaster)s"&gt;websites team&lt;/a&gt;.') % {'webmaster': tg.webmaster_email})}
           </p>
           <p class="disclaimer">
-            ${_('The Fedora Project is maintained and driven by the community and sponsored by Red Hat.  This is a community maintained site.  Red Hat is not responsible for content.')}
+            ${_('The CentOS Project is maintained and driven by the community and sponsored by Red Hat.  This is a community maintained site.  Red Hat is not responsible for content.')}
           </p>
         </div>
       </div>
