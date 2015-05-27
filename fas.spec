@@ -1,6 +1,6 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
-Name:           fas
+Name:           centos-fas
 Version:        0.10.2
 Release:        2%{?dist}
 Summary:        Fedora Account System
@@ -152,6 +152,9 @@ cp -pr updates/ %{buildroot}%{_datadir}/fas
 %attr(0700,root,root) %dir %{_localstatedir}/lib/fas
 
 %changelog
+* Tue Apr 21 2015 Brian Stinson <brian@bstinson.com> - 0.10.2-2.centos
+- Debrand for use in the CentOS Project
+
 * Mon Jan 26 2015 Xavier Lamien <laxathom@fedoraproject.org> - 0.10.2-2
 - Rebuild with up-to-date source tarball.
 
