@@ -717,7 +717,7 @@ HelpBalloonOptions.prototype = {
 	 * to an existing element if you're using that as your anchoring icon.
 	 * @var {Object}
 	 */
-	icon: '/accounts/static/images/balloons/icon.gif',
+	icon: '/static/images/balloons/icon.gif',
 	/**
 	 * Alt text of the help icon
 	 * @var {String}
@@ -783,7 +783,7 @@ HelpBalloonOptions.prototype = {
 	 * Clossing button image path
 	 * @var {String}
 	 */
-	button: '/accounts/static/images/balloons/button.png',
+	button: '/static/images/balloons/button.png',
 	/**
 	 * Balloon image path prefix. There are 4 button images, numerically named, starting with 0.
 	 * 0, 1
@@ -791,7 +791,7 @@ HelpBalloonOptions.prototype = {
 	 * (the number indicates the corner opposite the anchor (the pointing direction)
 	 * @var {String}
 	 */
-	balloonPrefix: '/accounts/static/images/balloons/balloon-',
+	balloonPrefix: '/static/images/balloons/balloon-',
 	/**
 	 * The image filename suffix, including the file extension
 	 * @var {String}
