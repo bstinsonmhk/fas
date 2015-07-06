@@ -443,7 +443,7 @@ class User(controllers.Controller):
                 target.username
             change_text = _('''
 You have just updated information about your account.  If you did not request
-these changes please contact %(accounts_email}s and let them know.  Your
+these changes please contact %(accounts_email)s and let them know.  Your
 updated information is:
 
   username:       %(username)s
