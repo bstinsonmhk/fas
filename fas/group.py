@@ -828,11 +828,11 @@ issues, in order to either create awareness or to focus on development along a
 specific topic.
 
 Check out http://wiki.centos.org/SpecialInterestGroup for more information, or
-visit http://admin.centos.org/accounts to create an account.
+visit http://%(topurl)s to create an account.
 
 Welcome!
 '''
-        % {'fullname': person.human_name }, language)
+                 % {'fullname': person.human_name, 'topurl': config.get('fas.url') }, language)
 
         return dict(person=person, group=group, invite_subject=subject,
                     invite_text=text, selected_language=language)
@@ -856,11 +856,12 @@ issues, in order to either create awareness or to focus on development along a
 specific topic.
 
 Check out http://wiki.centos.org/SpecialInterestGroup for more information, or
-visit http://admin.centos.org/accounts to create an account.
+visit http://%(topurl) to create an account.
 
 Welcome!
-'''
-        % {'fullname': person.human_name }, language)
+''' % {'fullname': person.human_name,
+       'topurl': config.get('fas.url')},
+                                        language)
 
             send_mail(target, invite_subject, invite_text)
 

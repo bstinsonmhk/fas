@@ -407,7 +407,7 @@ class User(controllers.Controller):
     ownership of this email by visiting the following URL (you will need to
     login with your CentOS account first):
 
-    %(verifyurl)s/accounts/user/verifyemail/%(token)s
+    %(verifyurl)s/user/verifyemail/%(token)s
     ''') % { 'verifyurl' : config.get('base_url_filter.base_url').rstrip('/'), 'token' : token}
                     send_mail(email, change_subject, change_text)
                     # Note: email is purposefully not added to the changed[] list
@@ -1210,7 +1210,7 @@ Warning: Someone attempted to reset the password for system account
 Somebody (hopefully you) has requested a password reset for your account!
 To change your password (or to cancel the request), please visit
 
-%(verifyurl)s/accounts/user/verifypass/%(user)s/%(token)s
+%(verifyurl)s/user/verifypass/%(user)s/%(token)s
 ''') % {'verifyurl' : config.get('base_url_filter.base_url').rstrip('/'),
         'user': username, 'token': token}
         if encrypted:
