@@ -1032,13 +1032,13 @@ You have created a new CentOS account!
 Your username is: %(username)s
 Your new password is: %(password)s
 
-Please go to %(base_url)s%(webpath)s/user/changepass
+Please go to %(base_url)s/user/changepass
 to change it.
 
 ''') % {'username': person.username,
         'password': newpass['pass'],
         'base_url': config.get('base_url_filter.base_url'),
-        'webpath': config.get('server.webpath')})
+        })
         person.password = newpass['hash']
         fas.fedmsgshim.send_message(topic="user.create", msg={
             'agent': person.username,
