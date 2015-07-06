@@ -443,7 +443,7 @@ class User(controllers.Controller):
                 target.username
             change_text = _('''
 You have just updated information about your account.  If you did not request
-these changes please contact admin@centos.org and let them know.  Your
+these changes please contact %(accounts_email}s and let them know.  Your
 updated information is:
 
   username:       %(username)s
@@ -461,7 +461,7 @@ updated information is:
 
 If the above information is incorrect, please log in and fix it:
 
-   %(editurl)s/accounts/user/edit/%(username)s
+   %(editurl)s/user/edit/%(username)s
 ''') % { 'username'       : target.username,
          'fullname'       : target.human_name,
          'ircnick'        : target.ircnick,
@@ -474,6 +474,7 @@ If the above information is incorrect, please log in and fix it:
          'privacy'        : target.privacy,
          'ssh_key'        : target.ssh_key,
          'gpg_keyid'      : target.gpg_keyid,
+         'accounts_email' : config.get('accounts_email'),
          'editurl'        : config.get('base_url_filter.base_url').rstrip('/')}
             send_mail(target.email, change_subject, change_text)
             turbogears.flash(_('Your account details have been saved.') + \
@@ -526,11 +527,13 @@ If the above information is incorrect, please log in and fix it:
 
         subject = _('Your CentOS Account has been set to %s') % status
         text = _('''
-Your account status have just been set to %s by an admin or an account's moderator. 
-If this is not expected, please contact admin@centos.org and let them know.
+Your account status have just been set to %(status)s by an admin or an account's moderator.
+If this is not expected, please contact %(accounts_email)s and let them know.
 
 - The CentOS Project
-        ''') % status
+                 ''') % {'status': status,
+                         'accounts_email': config.get('accounts_email')
+                        }
         send_mail(target.email, subject, text)
 
         fas.fedmsgshim.send_message(topic="user.update", msg={
@@ -1490,11 +1493,11 @@ To change your password (or to cancel the request), please visit
             person.username
         gencert_text = _('''
 You have generated a new SSL certificate.  If you did not request this,
-please cc admin@centos.org and let them know.
+please cc %(accounts_email)s and let them know.
 
 Note that certificates generated prior to the current one have been
 automatically revoked, and should stop working within the hour.
-''')
+                         '''% {'accounts_email': config.get('accounts_email')})
         send_mail(person.email, gencert_subject, gencert_text)
         Log(author_id=person.id, description='Certificate generated for %s' %
             person.username)
