@@ -105,11 +105,9 @@ class UserCreate(validators.Schema):
         )
     email = validators.All(
         validators.Email(not_empty=True, strip=True),
-        NonFedoraEmail(not_empty=True, strip=True),
     )
     verify_email = validators.All(
         validators.Email(not_empty=True, strip=True),
-        NonFedoraEmail(not_empty=True, strip=True),
     )
     security_question = validators.UnicodeString(not_empty=True)
     security_answer = validators.UnicodeString(not_empty=True)
@@ -151,7 +149,6 @@ class UserSave(validators.Schema):
     telephone = validators.UnicodeString  # TODO - could use better validation
     email = validators.All(
        validators.Email(not_empty=True, strip=True, max=128),
-       NonFedoraEmail(not_empty=True, strip=True, max=128),
     )
     locale = ValidLanguage(not_empty=True, strip=True)
     #fedoraPersonBugzillaMail = validators.Email(strip=True, max=128)
