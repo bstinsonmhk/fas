@@ -523,8 +523,7 @@ class Group(controllers.Controller):
                 locale = 'en'
                 sponsor_url = config.get('base_url_filter.base_url') + \
                     tg_url('/group/view/%s' % groupname)
-                sponsors_addr = '%(group)s-sponsors@%(host)s' % \
-                    {'group': group.name, 'host': config.get('email_host')}
+                sponsors_addr = '{0}'.format(config.get('accounts_email'))
                 sponsor_subject = _('Group \'%(group)s\' sponsor needed for %(user)s',
                         locale=locale) % {'user': target.username,
                                 'group': group.name}
