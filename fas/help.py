@@ -25,7 +25,7 @@ from turbogears import config, controllers, expose
 
 class Help(controllers.Controller):
     help = { 'none' :               [_('Error'), _('<p>We could not find that help item</p>')],
-            'cla_accuracy': [_('Accuracy of FPCA Information'), _('<p>The FPCA is a legal document.  We need to have accurate information attached to it just in case we ever need to contact you about a contribution that you make to the project.  Imagine if we were to get a call from a lawyer at some other company claiming that they own the copyright to your work and we have to tell them we have a right to use it because "Mickey Moose" contributed it to us and we have no telephone number to contact them!  Potentially a very sticky situation.</p>')],
+            'cla_accuracy': [_('The CentOS Project has no CLA'), _('')],
             'user_ircnick' :        [_('IRC Nick (Optional)'), _('<p>IRC Nick is used to identify yourself on irc.freenode.net.  Please register your nick on irc.freenode.net first, then fill this in so people can find you online when they need to</p>')],
             'user_email' :  [_('Email (Required)'), _('<p>This email address should be your preferred email contact and will be used to send various official emails to.</p>')],
             'user_security_question' : [_('Security question (Required)'), _('<p>The security question is used when you have lost access to your email address. You can email the admins, and they will ask you this question, and confirm you give the correct answer, before resetting your password/email address</p>')],
