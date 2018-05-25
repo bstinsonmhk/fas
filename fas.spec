@@ -2,13 +2,13 @@
 
 Name:           centos-fas
 Version:        0.10.2
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Fedora Account System
 
 Group:          Development/Languages
 License:        GPLv2
-URL:            https://fedorahosted.org/fas/
-Source0:        https://fedorahosted.org/releases/f/a/fas/%{name}-%{version}.tar.xz
+URL:            https://github.com/bstinsonmhk/fas
+Source0:        https://github.com/bstinsonmhk/%{name}/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      noarch
